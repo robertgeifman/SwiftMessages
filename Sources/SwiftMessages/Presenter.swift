@@ -21,7 +21,7 @@ class Presenter: NSObject {
         self.view = view
         self.delegate = delegate
         self.animator = Presenter.animator(forPresentationStyle: config.presentationStyle, delegate: delegate)
-        if let identifiable = view as? Identifiable {
+        if let identifiable = view as? StringIdentifiable {
             id = identifiable.id
         } else {
             var mutableView = view

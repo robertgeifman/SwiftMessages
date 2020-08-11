@@ -19,22 +19,26 @@ public enum Theme {
 /// The Icon enum provides type-safe access to the included icons.
 public enum Icon: String {
     
-    case error = "errorIcon"
-    case warning = "warningIcon"
-    case success = "successIcon"
-    case info = "infoIcon"
-    case errorLight = "errorIconLight"
-    case warningLight = "warningIconLight"
-    case successLight = "successIconLight"
-    case infoLight = "infoIconLight"
-    case errorSubtle = "errorIconSubtle"
-    case warningSubtle = "warningIconSubtle"
-    case successSubtle = "successIconSubtle"
-    case infoSubtle = "infoIconSubtle"
+    case error = "xmark.circle.fill"
+    case errorLight = "xmark.circle"
+    case errorSubtle = "xmark"
+
+    case warning = "exclamationmark.circle.fill"
+    case warningLight = "exclamationmark.circle"
+    case warningSubtle = "exclamationmark"
+
+    case success = "checkmark.circle.fill"
+    case successLight = "checkmark.circle"
+    case successSubtle = "checkmark"
+
+    case info = "info.circle.fill"
+    case infoLight = "info.circle"
+    case infoSubtle = "info"
+    
     
     /// Returns the associated image.
     public var image: UIImage {
-        return UIImage(named: rawValue, in: Bundle.sm_frameworkBundle(), compatibleWith: nil)!.withRenderingMode(.alwaysTemplate)
+        return UIImage(systemName: rawValue)!.withRenderingMode(.alwaysTemplate)
     }
 }
 
