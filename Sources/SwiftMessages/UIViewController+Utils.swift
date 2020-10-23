@@ -19,7 +19,7 @@ extension UIViewController {
         } else if case .bottom? = topBottomStyle, let tabBarController = sm_selectTabBarControllerTopDown() {
             return tabBarController
         }
-        return WindowViewController.newInstance(windowLevel: self.view.window?.windowLevel, config: config)
+        return WindowController.newInstance(windowLevel: self.view.window?.windowLevel, config: config)
     }
     
     fileprivate func sm_selectNavigationControllerTopDown() -> UINavigationController? {
@@ -71,7 +71,7 @@ extension UIViewController {
             if let parent = self.parent {
                 return parent.sm_selectPresentationContextBottomUp(config)
             } else {
-                return WindowViewController.newInstance(windowLevel: self.view.window?.windowLevel, config: config)
+                return WindowController.newInstance(windowLevel: self.view.window?.windowLevel, config: config)
             }
         }
         return self

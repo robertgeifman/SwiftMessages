@@ -147,7 +147,7 @@ config.presentationStyle = .custom(animator: animation)
 
 ### Features
 * Updates for Swift 4.1
-* #164 Added an optional `windowViewController` property to `SwiftMessages.Config` for supplying a custom subclass of `WindowViewController`.
+* #164 Added an optional `windowController` property to `SwiftMessages.Config` for supplying a custom subclass of `WindowController`.
 
 ### Bug Fixes
 * Custom presentation styles using `TopBottomAnimation` now display properly under top and bottom bars.

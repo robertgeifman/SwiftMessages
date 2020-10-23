@@ -1,5 +1,5 @@
 //
-//  WindowViewController.swift
+//  WindowController.swift
 //  SwiftMessages
 //
 //  Created by Timothy Moose on 8/1/16.
@@ -8,8 +8,7 @@
 
 import UIKit
 
-open class WindowViewController: UIViewController
-{
+open class WindowController: UIViewController {
     fileprivate var window: UIWindow?
     
     let windowLevel: UIWindow.Level
@@ -72,8 +71,8 @@ open class WindowViewController: UIViewController
     }
 }
 
-extension WindowViewController {
-    static func newInstance(windowLevel: UIWindow.Level?, config: SwiftMessages.Config) -> WindowViewController {
-        return config.windowViewController?(windowLevel, config) ?? WindowViewController(windowLevel: windowLevel, config: config)
+extension WindowController {
+    static func newInstance(windowLevel: UIWindow.Level?, config: SwiftMessages.Config) -> WindowController {
+        return config.windowController?(windowLevel, config) ?? WindowController(windowLevel: windowLevel, config: config)
     }
 }

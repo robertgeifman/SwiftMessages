@@ -166,10 +166,7 @@ public class TopBottomAnimation: NSObject, Animator {
 
     fileprivate var bounceOffset: CGFloat = 5
 
-    /*
-     MARK: - Pan to close
-     */
-
+    //     MARK: - Pan to close
     fileprivate var closing = false
     fileprivate var rubberBanding = false
     fileprivate var closeSpeed: CGFloat = 0.0

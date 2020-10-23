@@ -12,9 +12,7 @@ import UIKit
  */
 open class MessageView: BaseView, Identifiable, AccessibleMessage {
     
-    /*
-     MARK: - Button tap handler
-     */
+    //     MARK: - Button tap handler
     
     /// An optional button tap handler. The `button` is automatically
     /// configured to call this tap handler on `.TouchUpInside`.
@@ -24,10 +22,7 @@ open class MessageView: BaseView, Identifiable, AccessibleMessage {
         buttonTapHandler?(button)
     }
 
-    /*
-     MARK: - Touch handling
-     */
-
+    //     MARK: - Touch handling
     open override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         // Only accept touches within the background view. Anything outside of the
         // background view's bounds should be transparent and does not need to receive
@@ -37,9 +32,7 @@ open class MessageView: BaseView, Identifiable, AccessibleMessage {
             : backgroundView.point(inside: convert(point, to: backgroundView), with: event)
     }
 
-    /*
-     MARK: - IB outlets
-     */
+    //     MARK: - IB outlets
     
     /// An optional title label.
     @IBOutlet open var titleLabel: UILabel?
@@ -67,9 +60,7 @@ open class MessageView: BaseView, Identifiable, AccessibleMessage {
         }
     }
     
-    /*
-     MARK: - Identifiable
-     */
+    //     MARK: - Identifiable
     
     open var id: String {
         get {
@@ -82,10 +73,7 @@ open class MessageView: BaseView, Identifiable, AccessibleMessage {
     
     private var customId: String?
 
-    /*
-     MARK: - AccessibleMessage
-     */
-
+    //     MARK: - AccessibleMessage
     /**
      An optional prefix for the `accessibilityMessage` that can
      be used to futher clarify the message for VoiceOver. For example, 

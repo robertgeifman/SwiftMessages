@@ -111,19 +111,22 @@ open class KeyboardTrackingView: UIView {
 
     private func animateKeyboardChange(change: Change, height: CGFloat, userInfo: [AnyHashable: Any]) {
         self.heightConstraint.constant = height
-        if let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
-            let curveNumber = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber {
-            CATransaction.begin()
-            CATransaction.setCompletionBlock {
-                self.delegate?.keyboardTrackingViewDidChange(change: change, userInfo: userInfo)
-            }
-            UIView.beginAnimations(nil, context: nil)
-            UIView.setAnimationDuration(durationNumber.doubleValue)
-            UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curveNumber.intValue)!)
-            UIView.setAnimationBeginsFromCurrentState(true)
-            self.superview?.layoutIfNeeded()
-            UIView.commitAnimations()
-            CATransaction.commit()
-        }
+        guard let durationNumber = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber//,
+//            let curveNumber = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber
+		else { return }
+		CATransaction.begin()
+		CATransaction.setCompletionBlock {
+			self.delegate?.keyboardTrackingViewDidChange(change: change, userInfo: userInfo)
+		}
+		UIView.animate(withDuration: durationNumber.doubleValue, delay: 0, options: [.beginFromCurrentState, .layoutSubviews, .curveEaseOut]) {
+			self.superview?.layoutIfNeeded()
+		}
+
+//		UIView.beginAnimations(nil, context: nil)
+//		UIView.setAnimationDuration(durationNumber.doubleValue)
+//		UIView.setAnimationCurve(UIView.AnimationCurve(rawValue: curveNumber.intValue)!)
+//		UIView.setAnimationBeginsFromCurrentState(true)
+//		UIView.commitAnimations()
+		CATransaction.commit()
     }
 }

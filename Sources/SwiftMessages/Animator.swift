@@ -59,7 +59,6 @@ public class AnimationContext {
 }
 
 public protocol Animator: class {
-
     /// Adopting classes should declare as `weak`.
     var delegate: AnimationDelegate? { get set }
 
