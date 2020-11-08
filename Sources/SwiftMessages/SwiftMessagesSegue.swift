@@ -173,11 +173,9 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 
 	private var messenger = SwiftMessages()
 	private var selfRetainer: SwiftMessagesSegue? = nil
-	private lazy var hider = { return TransitioningDismisser(segue: self) }()
+	private lazy var hider = TransitioningDismisser(segue: self)
 
-	private lazy var presenter = {
-		return Presenter(config: messenger.defaultConfig, view: messageView, delegate: messenger)
-	}()
+	private lazy var presenter = Presenter(config: messenger.defaultConfig, view: messageView, delegate: messenger)
 
 	override open func perform() {
 		selfRetainer = self
