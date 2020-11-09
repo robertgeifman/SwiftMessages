@@ -99,19 +99,19 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 
 	/// The presentation style to use. See the SwiftMessages.PresentationStyle for details.
 	public var presentationStyle: SwiftMessages.PresentationStyle {
-		get { return messenger.defaultConfig.presentationStyle }
+		get { messenger.defaultConfig.presentationStyle }
 		set { messenger.defaultConfig.presentationStyle = newValue }
 	}
 
 	/// The dim mode to use. See the SwiftMessages.DimMode for details.
 	public var dimMode: SwiftMessages.DimMode {
-		get { return messenger.defaultConfig.dimMode}
+		get { messenger.defaultConfig.dimMode}
 		set { messenger.defaultConfig.dimMode = newValue }
 	}
 	
 	// duration
 	public var duration: SwiftMessages.Duration {
-		get { return messenger.defaultConfig.duration}
+		get { messenger.defaultConfig.duration}
 		set { messenger.defaultConfig.duration = newValue }
 	}
 
@@ -119,13 +119,13 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 	/// on the message view. The default value is `true`, but may not be appropriate
 	/// for view controllers that use swipe or pan gestures.
 	public var interactiveHide: Bool {
-		get { return messenger.defaultConfig.interactiveHide }
+		get { messenger.defaultConfig.interactiveHide }
 		set { messenger.defaultConfig.interactiveHide = newValue }
 	}
 
 	/// Specifies an optional array of event listeners.
 	public var eventListeners: [SwiftMessages.EventListener] {
-		get { return messenger.defaultConfig.eventListeners }
+		get { messenger.defaultConfig.eventListeners }
 		set { messenger.defaultConfig.eventListeners = newValue }
 	}
 
@@ -151,7 +151,7 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 	 `messageView`. This view provides configurable squircle (round) corners (see the parent
 	 class `CornerRoundingView`).
 	*/
-	public var containerView: CornerRoundingView = CornerRoundingView()
+	public var containerView = CornerRoundingView()
 
 	/**
 	 Specifies how the view controller's view is installed into the
@@ -163,18 +163,13 @@ open class SwiftMessagesSegue: UIStoryboardSegue {
 	 Supply an instance of `KeyboardTrackingView` to have the message view avoid the keyboard.
 	 */
 	public var keyboardTrackingView: KeyboardTrackingView? {
-		get {
-			return messenger.defaultConfig.keyboardTrackingView
-		}
-		set {
-			messenger.defaultConfig.keyboardTrackingView = newValue
-		}
+		get { messenger.defaultConfig.keyboardTrackingView }
+		set { messenger.defaultConfig.keyboardTrackingView = newValue }
 	}
 
 	private var messenger = SwiftMessages()
 	private var selfRetainer: SwiftMessagesSegue? = nil
 	private lazy var hider = TransitioningDismisser(segue: self)
-
 	private lazy var presenter = Presenter(config: messenger.defaultConfig, view: messageView, delegate: messenger)
 
 	override open func perform() {
@@ -279,13 +274,12 @@ extension SwiftMessagesSegue: UIViewControllerTransitioningDelegate {
 	}
 
 	public func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-		return hider
+		hider
 	}
 }
 
 extension SwiftMessagesSegue {
 	private class TransitioningPresenter: NSObject, UIViewControllerAnimatedTransitioning {
-
 		fileprivate private(set) var completeTransition: ((Bool) -> Void)?
 		private weak var segue: SwiftMessagesSegue?
 
@@ -294,12 +288,11 @@ extension SwiftMessagesSegue {
 		}
 
 		func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-			return segue?.presenter.animator.showDuration ?? 0.5
+			segue?.presenter.animator.showDuration ?? 0.5
 		}
 
 		func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
-			guard let segue = segue,
-				let toView = transitionContext.view(forKey: .to) else {
+			guard let segue = segue, let toView = transitionContext.view(forKey: .to) else {
 				transitionContext.completeTransition(false)
 				return
 			}
@@ -319,20 +312,15 @@ extension SwiftMessagesSegue {
 			segue.containerView.trailingAnchor.constraint(equalTo: toView.trailingAnchor).isActive = true
 			// Install the `toView` into the message view.
 			switch segue.containment {
-			case .content:
-				segue.messageView.installContentView(segue.containerView, preferredHeight: segue.preferredHeight)
-			case .background:
-				segue.messageView.installBackgroundView(segue.containerView, preferredHeight: segue.preferredHeight)
-			case .backgroundVertical:
-				segue.messageView.installBackgroundVerticalView(segue.containerView, preferredHeight: segue.preferredHeight)
+			case .content: segue.messageView.installContentView(segue.containerView, preferredHeight: segue.preferredHeight)
+			case .background: segue.messageView.installBackgroundView(segue.containerView, preferredHeight: segue.preferredHeight)
+			case .backgroundVertical: segue.messageView.installBackgroundVerticalView(segue.containerView, preferredHeight: segue.preferredHeight)
 			}
 			let toVC = transitionContext.viewController(forKey: .to)
-			if let preferredHeight = toVC?.preferredContentSize.height,
-				preferredHeight > 0 {
+			if let preferredHeight = toVC?.preferredContentSize.height, preferredHeight > 0 {
 				segue.containerView.heightAnchor.constraint(equalToConstant: preferredHeight).with(priority: UILayoutPriority(rawValue: 950)).isActive = true
 			}
-			if let preferredWidth = toVC?.preferredContentSize.width,
-				preferredWidth > 0 {
+			if let preferredWidth = toVC?.preferredContentSize.width, preferredWidth > 0 {
 				segue.containerView.widthAnchor.constraint(equalToConstant: preferredWidth).with(priority: UILayoutPriority(rawValue: 950)).isActive = true
 			}
 			segue.presenter.config.presentationContext = .view(transitionContainer)
@@ -343,7 +331,6 @@ extension SwiftMessagesSegue {
 
 extension SwiftMessagesSegue {
 	private class TransitioningDismisser: NSObject, UIViewControllerAnimatedTransitioning {
-
 		fileprivate private(set) var completeTransition: ((Bool) -> Void)?
 		private weak var segue: SwiftMessagesSegue?
 
@@ -352,7 +339,7 @@ extension SwiftMessagesSegue {
 		}
 
 		func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-			return segue?.presenter.animator.hideDuration ?? 0.5
+			segue?.presenter.animator.hideDuration ?? 0.5
 		}
 
 		func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
